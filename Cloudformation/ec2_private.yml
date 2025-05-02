@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Launch Private EC2 Instance
+
+Resources:
+  PrivateEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-004dea1f77bd3fa11
+      InstanceType: t2.micro
+      KeyName: terraform-key-new
+      SubnetId: !ImportValue PrivateSubnet
+      SecurityGroupIds:
+        - !ImportValue PrivateSecurityGroup
+      Tags:
+        - Key: Name
+          Value: private-ec2
