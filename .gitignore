@@ -1,0 +1,31 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Crash log files
+crash.log
+
+# Ignore override files (used for local config)
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI working directory
+.terraform/
+
+# Lock file (if using Terraform <= 0.12)
+.terraform.lock.hcl
+
+# Sensitive or personal files (optional)
+*.pem
+*.key
+*.crt
+
+# IDE / OS specific
+.DS_Store
+.idea/
+.vscode/
+*.swp
