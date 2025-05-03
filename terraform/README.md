@@ -30,7 +30,8 @@ terraform init
 
 Kiểm tra tính hợp lệ của cấu hình:
 ```bash
-terraform init
+terraform validate
+```
 
 Xem trước các thay đổi:
 ```bash
