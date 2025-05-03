@@ -48,14 +48,13 @@ terraform apply
 terraform/
 ├── .terraform/
 ├── modules/
-│   ├── providers/
+│   ├── internet_gateway/
+│   ├── key_pair/
+│   ├── nat_gateway/
+│   ├── route_tables/
+│   ├── security_group/
+│   ├── vpc/
 │   └── ec2/
-│       ├── internet_gateway/
-│       ├── key_pair/
-│       ├── nat_gateway/
-│       ├── route_tables/
-│       ├── security_group/
-│       └── vpc/
 ├── terraform.lock.hcl
 ├── main.tf
 ├── outputs.tf
@@ -63,7 +62,8 @@ terraform/
 ├── terraform.tfstate
 ├── terraform.tfstate.backup
 ├── variables.tf
-└── .gitignore          
+└── .gitignore
+         
 ```
 
 
