@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: |
+  Template chính (root stack) để điều phối việc triển khai toàn bộ hạ tầng mạng và máy chủ.
+
+Parameters:
+  ProjectName:
+    Type: String
+    Description: Tên dự án
+    Default: MyProject
+
+Resources:
+  #Tạo VPC
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./vpc.yml
+      Parameters:
+        ProjectName: !Ref ProjectName
+
+  #Tạo Security Groups
+  SecurityGroupStack:
+    Type: AWS::CloudFormation::Stack
+    # Đảm bảo rằng Security Group chỉ được tạo sau khi đã tạo VPC
+    DependsOn: VPCStack
+    Properties:
+      TemplateURL: ./security_groups.yml
+      Parameters:
+        #Lấy giá trị VpcId từ Output của VPCStack và truyền vào
+        VpcId: !GetAtt VPCStack.Outputs.VPCID
+        ProjectName: !Ref ProjectName
+
+  #Tạo Route Tables
+  RouteTableStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: VPCStack
+    Properties:
+      TemplateURL: ./route_table.yml
+      Parameters:
+        VpcId: !GetAtt VPCStack.Outputs.VPCID
+        # Giả sử cần ID của public/private subnet từ VPCStack
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetID
+
+  #Tạo NAT Gateway từ file nat_gateway.yml
+  NatGatewayStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: 
+      - VPCStack
+      - RouteTableStack
+    Properties:
+      TemplateURL: ./nat_gateway.yml
+      Parameters:
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+
+  #Tạo EC2 trong Public Subnet
+  EC2PublicStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+      - VPCStack
+      - SecurityGroupStack
+    Properties:
+      TemplateURL: ./ec2_public.yml
+      Parameters:
+        VpcId: !GetAtt VPCStack.Outputs.VPCID
+        SubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+        # Lấy Security Group ID từ output của SecurityGroupStack
+        SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicWebSGID
