@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Create NAT Gateway with Elastic IP
 
+Parameters:
+  PublicSubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: ID of the Public Subnet where the NAT Gateway will be created.
+
 Resources:
   EIP:
     Type: AWS::EC2::EIP
