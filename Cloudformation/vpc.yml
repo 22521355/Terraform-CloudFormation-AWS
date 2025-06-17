@@ -15,14 +15,14 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: my-vpc
+          Value: !Sub "${ProjectName}-vpc"
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: my-igw
+          Value: !Sub "${ProjectName}-igw"
 
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -38,7 +38,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: my-public-subnet
+          Value: !Sub "${ProjectName}-public-subnet"
 
   PrivateSubnet:
     Type: AWS::EC2::Subnet
@@ -47,7 +47,7 @@ Resources:
       CidrBlock: 10.0.2.0/24
       Tags:
         - Key: Name
-          Value: my-private-subnet
+          Value: !Sub "${ProjectName}-private-subnet"
 
 Outputs:
   MyVPC:
