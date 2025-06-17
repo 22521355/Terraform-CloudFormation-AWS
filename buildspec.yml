@@ -12,6 +12,8 @@ phases:
     commands:
       - echo "Running cfen-lint on all templates..."
       - cfn-lint ./Cloudformation/*.yml --ignore-checks W3002
+      - echo "Running taskcat integration tests..."
+      - taskcat test run
 
   build:
     commands:
