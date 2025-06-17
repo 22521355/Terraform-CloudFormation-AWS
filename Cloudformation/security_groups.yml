@@ -15,7 +15,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow SSH from my home IP
-      VpcId: !ImportValue MyVPC
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
@@ -23,13 +23,13 @@ Resources:
           CidrIp: !Ref MyHomeIP
       Tags:
         - Key: Name
-          Value: public-sg
+          Value: !Sub "${ProjectName}-public-sg"
 
   PrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow SSH only from Public EC2
-      VpcId: !ImportValue MyVPC
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
@@ -37,7 +37,7 @@ Resources:
           SourceSecurityGroupId: !Ref PublicSecurityGroup
       Tags:
         - Key: Name
-          Value: private-sg
+          Value: !Sub "${ProjectName}-public-sg"
 
 Outputs:
   PublicSecurityGroupId:
