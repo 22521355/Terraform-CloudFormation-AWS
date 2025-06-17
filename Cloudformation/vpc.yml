@@ -60,7 +60,7 @@ Outputs:
     Description: Public Subnet ID
     Value: !Ref PublicSubnet
     Export:
-      Name: PublicSubnet
+      Name: !Sub "${AWS::StackName}-PublicSubnet"
 
   PrivateSubnet:
     Description: Private Subnet ID
