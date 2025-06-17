@@ -26,7 +26,8 @@ Resources:
       TemplateURL: ./security_groups.yml
       Parameters:
         #Lấy giá trị VpcId từ Output của VPCStack và truyền vào
-        VpcId: !GetAtt VPCStack.Outputs.VPCID
+        MyHomeIP: 0.0.0.0/0
+        VpcId: !GetAtt VPCStack.Outputs.MyVPC
         ProjectName: !Ref ProjectName
 
   #Tạo Route Tables
@@ -36,9 +37,9 @@ Resources:
     Properties:
       TemplateURL: ./route_table.yml
       Parameters:
-        VpcId: !GetAtt VPCStack.Outputs.VPCID
+        VpcId: !GetAtt VPCStack.Outputs.MyVPC
         # Giả sử cần ID của public/private subnet từ VPCStack
-        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
         PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetID
 
   #Tạo NAT Gateway từ file nat_gateway.yml
@@ -50,7 +51,7 @@ Resources:
     Properties:
       TemplateURL: ./nat_gateway.yml
       Parameters:
-        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
 
   #Tạo EC2 trong Public Subnet
   EC2PublicStack:
@@ -61,7 +62,7 @@ Resources:
     Properties:
       TemplateURL: ./ec2_public.yml
       Parameters:
-        VpcId: !GetAtt VPCStack.Outputs.VPCID
-        SubnetId: !GetAtt VPCStack.Outputs.PublicSubnetID
+        VpcId: !GetAtt VPCStack.Outputs.MyVPC
+        SubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
         # Lấy Security Group ID từ output của SecurityGroupStack
         SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicWebSGID
