@@ -23,12 +23,12 @@ Resources:
   PrivateEC2:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-004dea1f77bd3fa11
-      InstanceType: t2.micro
-      KeyName: terraform-key-new
-      SubnetId: !ImportValue PrivateSubnet
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
       SecurityGroupIds:
-        - !ImportValue PrivateSecurityGroup
+        - !Ref SecurityGroupId
+      SubnetId: !Ref SubnetId
       Tags:
         - Key: Name
           Value: private-ec2
