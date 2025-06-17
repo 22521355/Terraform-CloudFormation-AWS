@@ -1,6 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Create Public and Private Route Tables
 
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: ID of the VPC to create route tables in.
+  InternetGatewayId:
+    Type: String
+    Description: ID of the Internet Gateway for the public route.
+  PublicSubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: ID of the Public Subnet to associate with the public route table.
+  PrivateSubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: ID of the Private Subnet to associate with the private route table.
+
 Resources:
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
