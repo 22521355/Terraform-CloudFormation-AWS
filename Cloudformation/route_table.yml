@@ -19,7 +19,7 @@ Resources:
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !ImportValue MyVPC
+      VpcId: !Ref VpcId
       Tags:
         - Key: Name
           Value: public-rt
@@ -29,12 +29,12 @@ Resources:
     Properties:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !ImportValue InternetGateway
+      GatewayId: !Ref InternetGatewayId
 
   PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !ImportValue PublicSubnet
+      SubnetId: !Ref PublicSubnetId
       RouteTableId: !Ref PublicRouteTable
 
   PrivateRouteTable:
@@ -48,5 +48,5 @@ Resources:
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !ImportValue PrivateSubnet
+      SubnetId: !Ref PrivateSubnetId
       RouteTableId: !Ref PrivateRouteTable
