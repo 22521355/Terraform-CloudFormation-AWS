@@ -21,7 +21,6 @@ Resources:
   SecurityGroupStack:
     Type: AWS::CloudFormation::Stack
     # Đảm bảo rằng Security Group chỉ được tạo sau khi đã tạo VPC
-    DependsOn: VPCStack
     Properties:
       TemplateURL: ./security_groups.yml
       Parameters:
@@ -33,7 +32,6 @@ Resources:
   #Tạo Route Tables
   RouteTableStack:
     Type: AWS::CloudFormation::Stack
-    DependsOn: VPCStack
     Properties:
       TemplateURL: ./route_table.yml
       Parameters:
@@ -45,9 +43,6 @@ Resources:
   #Tạo NAT Gateway từ file nat_gateway.yml
   NatGatewayStack:
     Type: AWS::CloudFormation::Stack
-    DependsOn: 
-      - VPCStack
-      - RouteTableStack
     Properties:
       TemplateURL: ./nat_gateway.yml
       Parameters:
@@ -56,9 +51,6 @@ Resources:
   #Tạo EC2 trong Public Subnet
   EC2PublicStack:
     Type: AWS::CloudFormation::Stack
-    DependsOn:
-      - VPCStack
-      - SecurityGroupStack
     Properties:
       TemplateURL: ./ec2_public.yml
       Parameters:
