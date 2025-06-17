@@ -38,7 +38,7 @@ Resources:
         VpcId: !GetAtt VPCStack.Outputs.MyVPC
         # Giả sử cần ID của public/private subnet từ VPCStack
         PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
-        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetID
+        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnet
 
   #Tạo NAT Gateway từ file nat_gateway.yml
   NatGatewayStack:
