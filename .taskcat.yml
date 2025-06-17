@@ -1,5 +1,5 @@
 project:
-  name: MyCloudFormation-Test-Project
+  name: my-cloudformation-test-project
   owner: your-email@example.com
   regions:
     - ap-southeast-1
