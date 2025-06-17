@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Create VPC with Public and Private Subnets and Internet Gateway
 
+Parameters:
+  ProjectName:
+    Type: String
+    Description: Project name for tagging resources.
+
 Resources:
   MyVPC:
     Type: AWS::EC2::VPC
