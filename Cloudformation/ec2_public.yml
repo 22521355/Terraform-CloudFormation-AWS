@@ -2,6 +2,9 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Launch Public EC2 Instance
 
 Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: ID of the VPC where the instance will be launched.
   SubnetId:
     Type: AWS::EC2::Subnet::Id
     Description: ID of the Subnet to launch the EC2 instance in.
