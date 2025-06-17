@@ -2,6 +2,10 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Create Security Groups for Public and Private EC2 Instances
 
 Parameters:
+  ProjectName:
+    Type: String
+  VpcId:
+    Type: AWS::EC2::VPC::Id
   MyHomeIP:
     Type: String
     Description: IP address that is allowed to SSH into Public EC2
