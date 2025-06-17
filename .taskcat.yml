@@ -1,13 +1,13 @@
 project:
-  name: MyCloudformationProject
+  name: MyCloudFormation-Test-Project
   owner: your-email@example.com
-  # Danh sách các Region kiểm thử template.
   regions:
     - ap-southeast-1
-  s3_bucket: taskcat-test-bucket-nhatthanh
+  s3_bucket: taskcat-test-bucket-nhatthanh 
 
 tests:
   default:
     template: ./Cloudformation/main.yml
     parameters:
-      ProjectName: TaskcatTestRun
+      KeyName: my-aws-key 
+      ImageId: ami-0435fcf800fb5418d
