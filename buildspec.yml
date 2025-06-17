@@ -5,29 +5,27 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
-      # Cài đặt cfn-lint để kiểm tra cú pháp CloudFormation
       - echo "Installing cfn-lint..."
       - pip install cfn-lint
-      # Cài đặt taskcat để kiểm tra tính đúng đắn của template
-      - echo "Installing taskcat..."
-      - pip install taskcat
 
   pre_build:
     commands:
-      # Chạy cfn-lint
-      - echo "Running cfn-lint..."
-      - cfn-lint template.yaml
+      - echo "Running cfen-lint on all templates..."
+      - cfn-lint ./Cloudformation/*.yml
 
   build:
     commands:
-      # Chạy taskcat để test deploy template
-      - echo "Running taskcat..."
-      - taskcat test run
+      - echo "Packaging CloudFormation templates..."
+      - |
+        aws cloudformation package \
+          --template-file Cloudformation/main.yml \
+          --s3-bucket taskcat-test-bucket-nhatthanh \
+          --output-template-file packaged-template.yml
 
   post_build:
     commands:
-      - echo "Validation complete"
+      - echo "Packaging complete."
 
 artifacts:
   files:
-    - main.yaml
+    - packaged-template.yml
