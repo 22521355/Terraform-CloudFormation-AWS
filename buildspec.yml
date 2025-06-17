@@ -12,6 +12,7 @@ phases:
     commands:
       - echo "Running cfen-lint on all templates..."
       - cfn-lint ./Cloudformation/*.yml
+      - cfn-lint ./Cloudformation/*.yml --ignore-checks W3002
 
   build:
     commands:
