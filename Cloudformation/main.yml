@@ -57,4 +57,4 @@ Resources:
         VpcId: !GetAtt VPCStack.Outputs.MyVPC
         SubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
         # Lấy Security Group ID từ output của SecurityGroupStack
-        SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicWebSGID
+        SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicSecurityGroup
