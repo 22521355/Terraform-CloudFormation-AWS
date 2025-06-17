@@ -7,6 +7,13 @@ Parameters:
     Type: String
     Description: Tên dự án
     Default: MyProject
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair to enable SSH access.
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Description: AMI ID for the EC2 instances.
+    Default: ami-0c55b159cbfafe1f0
 
 Resources:
   #Tạo VPC
@@ -39,6 +46,7 @@ Resources:
         # Giả sử cần ID của public/private subnet từ VPCStack
         PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
         PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnet
+        InternetGatewayId: !GetAtt VPCStack.Outputs.InternetGateway
 
   #Tạo NAT Gateway từ file nat_gateway.yml
   NatGatewayStack:
@@ -54,7 +62,10 @@ Resources:
     Properties:
       TemplateURL: ./ec2_public.yml
       Parameters:
+        KeyName: !Ref KeyName
+        ImageId: !Ref ImageId
+        InstanceType: t2.micro
         VpcId: !GetAtt VPCStack.Outputs.MyVPC
         SubnetId: !GetAtt VPCStack.Outputs.PublicSubnet
         # Lấy Security Group ID từ output của SecurityGroupStack
-        SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicSecurityGroup
+        SecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicSecurityGroupId
