@@ -54,22 +54,22 @@ Outputs:
     Description: VPC ID
     Value: !Ref MyVPC
     Export:
-      Name: !Sub "${AWS::StackName}-MyVPC"
+      Name: MyVPC
 
   PublicSubnet:
     Description: Public Subnet ID
     Value: !Ref PublicSubnet
     Export:
-      Name: !Sub "${AWS::StackName}-PublicSubnet"
+      Name: PublicSubnet
 
   PrivateSubnet:
     Description: Private Subnet ID
     Value: !Ref PrivateSubnet
     Export:
-      Name: !Sub "${AWS::StackName}-PrivateSubnet"
+      Name: PrivateSubnet
 
   InternetGateway:
     Description: Internet Gateway ID
     Value: !Ref InternetGateway
     Export:
-      Name: !Sub "${AWS::StackName}-InternetGateway"
+      Name: InternetGateway
