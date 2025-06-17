@@ -1,6 +1,24 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Launch Private EC2 Instance
 
+Parameters:
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: ID of the Subnet to launch the EC2 instance in.
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: ID of the Security Group to attach to the instance.
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of the EC2 Key Pair for SSH access.
+  InstanceType:
+    Type: String
+    Description: EC2 instance type.
+    Default: t2.micro
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Description: ID of the AMI to use for the instance.
+
 Resources:
   PrivateEC2:
     Type: AWS::EC2::Instance
